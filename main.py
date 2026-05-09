@@ -1,15 +1,17 @@
 import streamlit as st
 import os
 from crewai import Agent, Task, Crew, Process, LLM
-# 1. API Key Setup
-if "GROQ_API_KEY" in st.secrets:
-    os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
 
-# 2. Model Define Karein (Sabse Pakka Tareeka)
-my_llm = LLM(
-    model="groq/llama-3.1-8b-instant",
-    api_key=st.secrets["GROQ_API_KEY"]
-)
+# CrewAI ko batana ke hum Groq use kar rahe hain
+os.environ["LITELLM_LOG"] = "DEBUG" 
+
+# Model ko sahi tarah configure karein
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+    my_llm = LLM(
+        model="groq/llama-3.1-8b-instant",
+        api_key=api_key
+    )
 
 # --- Streamlit Setup ---
 st.set_page_config(page_title="AI Agent Crew", layout="wide")
